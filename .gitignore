@@ -1,0 +1,5 @@
+.idea
+.git
+*.csv
+__pycache__/
+datasets/
