@@ -18,14 +18,19 @@ df2.loc[df2['Review'] == "Exceptional ", "Review"] = "Exceptional"
 
 #----------------------------------------------------------------#
 
-df2.loc[df2['Review'] == "Superb 9.0", "Review"] = "Superb" # Review 열의 Review 값이 "Superb 9.0"인 행의 Review 값을 "Superb"로 변경
-df2.loc[df2['Review'] == "Exceptional 10", "Review"] = "Exceptional" # Review 열의 Review 값이 "Exceptional 10"인 행의 Review 값을 "Exceptional"로 변경   
-
-
-# print(df2.loc[df2['Review'] == "Review score ", ["Review"]]) # Review 열의 Review 값이 "Review score "인 행의 Review 값을 출력
-# print(df2.loc[df2['Review'] == "Review score ", ["Review", "Rating"]])
-# print(df2.loc[df2['Review'] == "Good", ["Review", "Rating"]])
-
+df2.loc[df2['Review'] == "Superb 9.0", "Review"] = "Superb"
+df2.loc[df2['Review'] == "Exceptional 10", "Review"] = "Exceptional"
 df2.loc[df2['Review'] == "Review score ", "Review"] = "Good"
 
-print(df2['Review'].value_counts())
+# print(type(df2['Total_Review'].unique()))
+# print(df2['Total_Review'].unique())
+# print(df2['Total_Review'].value_counts())
+
+df2['Total_Review'] = df2['Total_Review'].map(lambda x: str(x).replace('external','').strip()) # map() : 시리즈의 각 요소에 함수를 적용, strip() : 문자열 양쪽 공백 제거
+df2['Total_Review'] = df2['Total_Review'].map(lambda x: str(x).replace('review','').strip()) # replace('1','2') '1'을 '2'로 바꿔줌
+df2['Total_Review'] = df2['Total_Review'].map(lambda x: str(x).replace(',','')) # ,같은 기호를 포함한 문자열이 포함되어 있으면 실수로 타입을 변환할 수 없음
+df2['Total_Review'] = df2['Total_Review'].astype('float') # astype() : 데이터 타입을 바꿔줌
+
+# print(df2['Total_Review'].value_counts())
+# print(df2['Total_Review'].unique())
+print(df2['Total_Review'].describe())
