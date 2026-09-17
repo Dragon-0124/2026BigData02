@@ -4,10 +4,6 @@ import pandas as pd
 df2 = pd.read_csv('datasets\\bookings\\Bookings.csv')
 
 
-# print(df2.info())
-# print(df2['Review'])
-# print(df2['Review'].value_counts())
-
 #------------------------- 띄워쓰기 제거 -------------------------#
 
 df2.loc[df2['Review'] == "Good ", "Review"] = "Good" 
@@ -22,15 +18,16 @@ df2.loc[df2['Review'] == "Superb 9.0", "Review"] = "Superb"
 df2.loc[df2['Review'] == "Exceptional 10", "Review"] = "Exceptional"
 df2.loc[df2['Review'] == "Review score ", "Review"] = "Good"
 
-# print(type(df2['Total_Review'].unique()))
-# print(df2['Total_Review'].unique())
-# print(df2['Total_Review'].value_counts())
+# print(df2['Rating'].isna())
+# print(df2[df2['Rating'].isna()].head(5))
+# print(df2[df2['Rating'].isna()].head(5).index)
 
-df2['Total_Review'] = df2['Total_Review'].map(lambda x: str(x).replace('external','').strip()) # map() : 시리즈의 각 요소에 함수를 적용, strip() : 문자열 양쪽 공백 제거
-df2['Total_Review'] = df2['Total_Review'].map(lambda x: str(x).replace('review','').strip()) # replace('1','2') '1'을 '2'로 바꿔줌
-df2['Total_Review'] = df2['Total_Review'].map(lambda x: str(x).replace(',','')) # ,같은 기호를 포함한 문자열이 포함되어 있으면 실수로 타입을 변환할 수 없음
-df2['Total_Review'] = df2['Total_Review'].astype('float') # astype() : 데이터 타입을 바꿔줌
+index= df2[df2['Rating'].isna()].head(5).index
+# print(index)
 
-# print(df2['Total_Review'].value_counts())
-# print(df2['Total_Review'].unique())
-print(df2['Total_Review'].describe())
+df2["Rating"] = df2["Rating"].fillna(df2["Rating"].median()) # mean도 가능
+
+# print(df2.info())
+# print(df2["Rating"].head())
+# print(df2.iloc[167:172, 1:4])
+print(df2.loc[index, "Review":"Rating"])
