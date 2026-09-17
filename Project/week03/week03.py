@@ -1,14 +1,31 @@
 import numpy as np
 import pandas as pd
 
-df1 = pd.read_csv('Project\\week03\\bike.csv')
+df2 = pd.read_csv('datasets\\bookings\\Bookings.csv')
 
-# df1 = df1.rename({'registered': 'registered_user', 'casual': 'casual_user'}, axis=1)
-df1.rename({'registered': 'registered_user', 'casual': 'casual_user'}, axis=1, inplace=True) # inplace=True를 사용하여 원본 DataFrame을 수정
 
-# print(df1.head())
-# print(df1.info())
+# print(df2.info())
+# print(df2['Review'])
+# print(df2['Review'].value_counts())
 
-# print(df1.describe(include='str'))  # 문자열 데이터를 포함한 통계 요약 정보 출력
-# print(df1.describe(include='float'))  # 실수형 데이터를 포함한 통계 요약 정보 출력
-print(df1.describe(exclude='int'))  # 정수형 데이터를 제외한 통계 요약 정보 출력
+#------------------------- 띄워쓰기 제거 -------------------------#
+
+df2.loc[df2['Review'] == "Good ", "Review"] = "Good" 
+df2.loc[df2['Review'] == "Very good ", "Review"] = "Very good" 
+df2.loc[df2['Review'] == "Superb ", "Review"] = "Superb" 
+df2.loc[df2['Review'] == "Fabulous ", "Review"] = "Fabulous" 
+df2.loc[df2['Review'] == "Exceptional ", "Review"] = "Exceptional"
+
+#----------------------------------------------------------------#
+
+df2.loc[df2['Review'] == "Superb 9.0", "Review"] = "Superb" # Review 열의 Review 값이 "Superb 9.0"인 행의 Review 값을 "Superb"로 변경
+df2.loc[df2['Review'] == "Exceptional 10", "Review"] = "Exceptional" # Review 열의 Review 값이 "Exceptional 10"인 행의 Review 값을 "Exceptional"로 변경   
+
+
+# print(df2.loc[df2['Review'] == "Review score ", ["Review"]]) # Review 열의 Review 값이 "Review score "인 행의 Review 값을 출력
+# print(df2.loc[df2['Review'] == "Review score ", ["Review", "Rating"]])
+# print(df2.loc[df2['Review'] == "Good", ["Review", "Rating"]])
+
+df2.loc[df2['Review'] == "Review score ", "Review"] = "Good"
+
+print(df2['Review'].value_counts())
