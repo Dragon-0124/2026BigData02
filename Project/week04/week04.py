@@ -1,28 +1,21 @@
 import seaborn as sns
 import pandas as pd
 
-pg = sns.load_dataset('penguins')
+'''
+df1 = pd.DataFrame(
+    {'group':['A','A','A','B','B'],
+    'value':[1, 1, 1, 10, 10]}
+)
+print(df1)
+'''
 
-# print(pg.head())
-# print(pg.describe())
+df = pd.DataFrame(
+    [['A', 1], ['A', 1], ['A', 1], ['B', 10], ['B', 10]], columns=['group', 'value']
+)
+# print(df)
 
-# print(pg.query('bill_length_mm < 35'))
-# print(pg[pg['bill_length_mm'] < 35])
-# print(pg.loc[pg['bill_length_mm'] < 30])
-
-# print(pg.query('bill_length_mm > 54 and species == "Chinstrap"'))
+print(df.groupby([1,0,1,0,1])['value'].mean()) # 0, 1끼리 그룹화
 
 
-# bln = float(input("Enter the minimum bill length: "))
-# species = input("Enter the species(Gentoo, Adelie, Chinstrap): ")
-# print(pg.query('bill_length_mm >= @bln and species == @species'))
-
-
-# query 메서드 조건문의 문자열 메서드 사용
-# print(pg.query('island.str.contains("sc")'))
-# print(pg.query('species.str.endswith("e")'))
-# print(pg.query('species.str.startswith("Gen")'))
-
-# isin을 이용한 리스트 내 항목 참조
-filtering = ["Adelie", "Chinstrap"]
-print(pg.query('species.isin(@filtering)'))
+s = pd.Series([True, False, True, False, True])
+print(df.groupby(s)['value'].mean())
