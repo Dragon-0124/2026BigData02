@@ -22,6 +22,8 @@ s, i, r, _, _ = linregress(df1['MILES*'], df1['DURATION*']) # X: MILES*, Y: DURA
 
 
 fig, ax = plt.subplots()
-sns.regplot(x='MILES*', y='DURATION*', data=df1, ax=ax) # 회귀선과 산점도 시각화
-# plt.legend()
+# sns.regplot(x='MILES*', y='DURATION*', data=df1, ax=ax, line_kws={ 'label' : 'y={:.2f}x + {:.2f}, R^2={:.2f}'.format(s, i, r**2)}) # 회귀선과 산점도 시각화(old version)
+sns.regplot(x='MILES*', y='DURATION*', data=df1, ax=ax, line_kws={ 'label' : f'y={s:.2f}x + {i:.2f}, R^2={r**2:.2f}'}) # 회귀선과 산점도 시각화
+# 범례(라벨) 표시 명령 추가
+plt.legend()
 plt.show()
