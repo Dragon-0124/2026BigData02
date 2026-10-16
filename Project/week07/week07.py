@@ -15,4 +15,4 @@ ages = [10, 20, 30, 40, 50, 60, 70, 80]
 print(pd.cut((df['Age']), bins=8).reset_index().groupby('Age').count())
 
 print(pd.qcut((df['Age']), q=8).reset_index().groupby('Age').count())
-# qcut은 구간을 데이터의 분포를 고려하여 구간을 나눈다. 중복 데이터때문에 완벽히 비율을 맞추지 못할 수 있음.
+# q(uantile)cut은 구간을 데이터의 분포를 고려하여 구간을 나눈다. 중복 데이터때문에 완벽히 비율을 맞추지 못할 수 있음.
